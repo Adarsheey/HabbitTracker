@@ -1,0 +1,88 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f0fdf4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 400px;
+  text-align: center;
+}
+
+h1 {
+  color: #22c55e;
+}
+
+.add-habit {
+  margin-bottom: 20px;
+}
+
+#habitInput {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 65%;
+}
+
+button {
+  padding: 6px 10px;
+  margin: 3px;
+  background: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background: #16a34a;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: #ecfdf5;
+  margin: 12px 0;
+  padding: 12px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+li span {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.streak {
+  font-weight: bold;
+  color: #059669;
+}
+
+.progress-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.day {
+  width: 12%;
+  height: 14px;
+  background: #d1fae5;
+  border-radius: 4px;
+}
+
+.day.done {
+  background: #22c55e;
+}
