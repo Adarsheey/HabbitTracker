@@ -52,20 +52,44 @@ addHabitBtn.addEventListener("click", () => {
 });
 
 // Mark as done
-function markDone(index) {
-  const today = new Date();
-  const todayStr = today.toDateString();
-  const dayIndex = today.getDay();
+function markHabit(index) {
+  const habits = JSON.parse(localStorage.getItem("habits")) || [];
+  const today = new Date().toDateString();
+  let message = "";
 
-  if (habits[index].lastCompleted !== todayStr) {
-    habits[index].streak++;
-    habits[index].lastCompleted = todayStr;
+  // First time logging → just set streak = 1
+  if (!habits[index].lastDate) {
+    habits[index].streak = 1;
+  } else {
+    const lastDate = new Date(habits[index].lastDate);
+    const diffDays = Math.floor(
+      (new Date(today) - lastDate) / (1000 * 60 * 60 * 24)
+    );
 
-    if (!habits[index].weekLog.includes(dayIndex)) {
-      habits[index].weekLog.push(dayIndex);
+    if (habits[index].lastDate === today) {
+      // already logged today → do nothing
+      return;
+    } else if (diffDays === 1) {
+      // consecutive day
+      habits[index].streak += 1;
+    } else if (diffDays > 1) {
+      // missed days
+      habits[index].streak = 1;
+      message = "⚠ Streak broken!";
     }
   }
+
+  // Save today's log
+  habits[index].lastDate = today;
+  localStorage.setItem("habits", JSON.stringify(habits));
+
+  // Refresh UI
   renderHabits();
+
+  // Show streak broken alert AFTER updating
+  if (message) {
+    alert(message);
+  }
 }
 
 // Reset habit
@@ -82,3 +106,4 @@ function deleteHabit(index) {
 
 // Initial render
 renderHabits();
+
