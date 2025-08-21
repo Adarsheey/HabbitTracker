@@ -1,88 +1,96 @@
+/* General Page Styling */
 body {
   font-family: Arial, sans-serif;
-  background: #f0fdf4;
+  background: #f0fdf4; /* light green background */
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+  align-items: flex-start;
+  min-height: 100vh;
 }
 
+/* App Container */
 .container {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  width: 400px;
+  background: #ffffff;
+  margin-top: 50px;
+  padding: 20px 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 400px;
   text-align: center;
 }
 
+/* Title */
 h1 {
-  color: #22c55e;
+  margin-bottom: 20px;
+  color: #166534; /* dark green */
 }
 
+/* Add Habit Section */
 .add-habit {
+  display: flex;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
 #habitInput {
+  flex: 1;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 2px solid #a7f3d0;
   border-radius: 8px;
-  width: 65%;
+  outline: none;
 }
 
-button {
-  padding: 6px 10px;
-  margin: 3px;
-  background: #22c55e;
-  color: white;
+#habitInput:focus {
+  border-color: #34d399; /* green on focus */
+}
+
+#addHabitBtn {
+  background: #34d399;
   border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  transition: background 0.2s;
+}
+
+#addHabitBtn:hover {
+  background: #059669; /* darker green on hover */
+}
+
+/* Habit List */
+#habitList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#habitList li {
+  background: #ecfdf5;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Done Button */
+#habitList button {
+  background: #3b82f6;
+  border: none;
+  padding: 6px 10px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
+  color: white;
+  transition: background 0.2s;
 }
 
-button:hover {
-  background: #16a34a;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  background: #ecfdf5;
-  margin: 12px 0;
-  padding: 12px;
-  border-radius: 10px;
-  text-align: left;
-}
-
-li span {
-  display: block;
-  margin-bottom: 8px;
-}
-
-.streak {
-  font-weight: bold;
-  color: #059669;
-}
-
-.progress-bar {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 6px;
-}
-
-.day {
-  width: 12%;
-  height: 14px;
-  background: #d1fae5;
-  border-radius: 4px;
-}
-
-.day.done {
-  background: #22c55e;
+#habitList button:hover {
+  background: #1d4ed8; /* darker blue on hover */
 }
