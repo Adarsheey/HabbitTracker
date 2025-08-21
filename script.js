@@ -1,63 +1,38 @@
-const habitInput = document.getElementById("habitInput");
-const addHabitBtn = document.getElementById("addHabitBtn");
-const habitList = document.getElementById("habitList");
+// Load habits on page load
+document.addEventListener("DOMContentLoaded", renderHabits);
 
-let habits = JSON.parse(localStorage.getItem("habits")) || [];
+// Add Habit button
+document.getElementById("addHabitBtn").addEventListener("click", addHabit);
 
-function saveHabits() {
-  localStorage.setItem("habits", JSON.stringify(habits));
-}
-
-// Render habits
-function renderHabits() {
-  habitList.innerHTML = "";
-  habits.forEach((habit, index) => {
-    const li = document.createElement("li");
-
-    // Progress bar
-    let progressHTML = '<div class="progress-bar">';
-    for (let i = 0; i < 7; i++) {
-      progressHTML += `<div class="day ${habit.weekLog.includes(i) ? "done" : ""}"></div>`;
-    }
-    progressHTML += '</div>';
-
-    li.innerHTML = `
-      <span>${habit.name} 🌟 <span class="streak">Streak: ${habit.streak}</span></span>
-      <div>
-        <button onclick="markDone(${index})">Done</button>
-        <button onclick="resetHabit(${index})">🔄 Reset</button>
-        <button onclick="deleteHabit(${index})">❌</button>
-      </div>
-      ${progressHTML}
-    `;
-    habitList.appendChild(li);
-  });
-  saveHabits();
-}
-
-// Add habit
-addHabitBtn.addEventListener("click", () => {
+// Function to add a new habit
+function addHabit() {
+  const habitInput = document.getElementById("habitInput");
   const habitName = habitInput.value.trim();
-  if (habitName) {
-    const habit = {
-      name: habitName,
-      streak: 0,
-      lastCompleted: null,
-      weekLog: [] // store days (0-6 for Sun-Sat)
-    };
-    habits.push(habit);
-    renderHabits();
-    habitInput.value = "";
-  }
-});
 
-// Mark as done
-function markDone(index) {
+  if (!habitName) return; // prevent empty input
+
+  const habits = JSON.parse(localStorage.getItem("habits")) || [];
+
+  const newHabit = {
+    name: habitName,
+    streak: 0,
+    lastDate: null
+  };
+
+  habits.push(newHabit);
+  localStorage.setItem("habits", JSON.stringify(habits));
+
+  habitInput.value = ""; // clear input
+  renderHabits();
+}
+
+// Function to mark a habit as done (with streak logic)
+function markHabit(index) {
   const habits = JSON.parse(localStorage.getItem("habits")) || [];
   const today = new Date().toDateString();
   let message = "";
 
-  // First time logging → just set streak = 1
+  // First time logging
   if (!habits[index].lastDate) {
     habits[index].streak = 1;
   } else {
@@ -70,12 +45,12 @@ function markDone(index) {
       // already logged today → do nothing
       return;
     } else if (diffDays === 1) {
-      // consecutive day
+      // consecutive day → increase streak
       habits[index].streak += 1;
     } else if (diffDays > 1) {
-      // missed days
+      // missed days → reset streak
       habits[index].streak = 1;
-      message = "⚠ Streak broken!";
+      message = "⚠️ Streak broken!";
     }
   }
 
@@ -86,25 +61,25 @@ function markDone(index) {
   // Refresh UI
   renderHabits();
 
-  // Show streak broken alert AFTER updating
+  // Show streak broken alert
   if (message) {
     alert(message);
   }
 }
 
-// Reset habit
-function resetHabit(index) {
-  habits[index].weekLog = [];
-  renderHabits();
+// Function to render all habits
+function renderHabits() {
+  const habits = JSON.parse(localStorage.getItem("habits")) || [];
+  const habitList = document.getElementById("habitList");
+
+  habitList.innerHTML = ""; // clear old list
+
+  habits.forEach((habit, index) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      ${habit.name} - 🔥 ${habit.streak} days
+      <button onclick="markHabit(${index})">Done</button>
+    `;
+    habitList.appendChild(li);
+  });
 }
-
-// Delete habit
-function deleteHabit(index) {
-  habits.splice(index, 1);
-  renderHabits();
-}
-
-// Initial render
-renderHabits();
-
-
