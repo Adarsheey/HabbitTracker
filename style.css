@@ -1,96 +1,99 @@
-/* General Page Styling */
+/* Basic layout */
+* { box-sizing: border-box; }
 body {
-  font-family: Arial, sans-serif;
-  background: #f0fdf4; /* light green background */
-  margin: 0;
-  padding: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #f0fdf4;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   min-height: 100vh;
-}
-
-/* App Container */
-.container {
-  background: #ffffff;
-  margin-top: 50px;
-  padding: 20px 30px;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
-}
-
-/* Title */
-h1 {
-  margin-bottom: 20px;
-  color: #166534; /* dark green */
-}
-
-/* Add Habit Section */
-.add-habit {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-#habitInput {
-  flex: 1;
-  padding: 10px;
-  border: 2px solid #a7f3d0;
-  border-radius: 8px;
-  outline: none;
-}
-
-#habitInput:focus {
-  border-color: #34d399; /* green on focus */
-}
-
-#addHabitBtn {
-  background: #34d399;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  color: white;
-  transition: background 0.2s;
-}
-
-#addHabitBtn:hover {
-  background: #059669; /* darker green on hover */
-}
-
-/* Habit List */
-#habitList {
-  list-style: none;
-  padding: 0;
   margin: 0;
 }
 
-#habitList li {
-  background: #ecfdf5;
-  padding: 10px;
-  margin-bottom: 10px;
+.container {
+  background: #fff;
+  width: 420px;
+  max-width: 92vw;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.08);
+}
+
+h1 { color: #16a34a; margin: 0 0 16px; }
+
+/* Add habit row */
+.add-habit {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+#habitInput {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
   border-radius: 10px;
+  outline: none;
+}
+#habitInput:focus { border-color: #16a34a; }
+
+button {
+  padding: 10px 12px;
+  background: #22c55e;
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+button:hover { background: #16a34a; }
+
+/* Habit list */
+ul { list-style: none; padding: 0; margin: 0; }
+li {
+  background: #ecfdf5;
+  border-radius: 12px;
+  padding: 12px;
+  margin: 10px 0;
+}
+
+.habit-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
 }
 
-/* Done Button */
-#habitList button {
-  background: #3b82f6;
-  border: none;
+.habit-name { font-weight: 600; }
+.streak { font-weight: 700; color: #047857; }
+
+.controls {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.controls button {
   padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  color: white;
-  transition: background 0.2s;
+  font-size: 13px;
 }
 
-#habitList button:hover {
-  background: #1d4ed8; /* darker blue on hover */
+/* Weekly progress bar */
+.progress-bar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-top: 10px;
+}
+.day {
+  height: 14px;
+  background: #d1fae5;
+  border-radius: 4px;
+}
+.day.done { background: #22c55e; }
+.day::after {
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  text-align: center;
+  color: #065f46;
+  margin-top: 2px;
 }
